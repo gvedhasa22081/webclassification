@@ -1,157 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Webpage Classification Using SVM</title>
+<meta charset="UTF-8">
+<title>Webpage Classification Using SVM</title>
 
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: "Segoe UI", Arial, sans-serif;
-            background: linear-gradient(135deg, #e3f2fd, #ffffff);
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
+<style>
+    body {
+        margin: 0;
+        font-family: "Segoe UI", Arial;
+        background: linear-gradient(135deg, #e3f2fd, #ffffff);
+        min-height: 100vh;
+    }
 
-        /* Header */
-        header {
-            background-color: #1565c0;
-            color: white;
-            padding: 18px;
-            text-align: center;
-            font-size: 22px;
-            font-weight: 600;
-            letter-spacing: 1px;
-        }
+    .center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
 
-        /* Main content */
-        .container {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+    .card {
+        background: white;
+        width: 360px;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        animation: fadeIn 0.8s;
+    }
 
-        .card {
-            width: 500px;
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.15);
-            animation: fadeIn 0.8s ease-in-out;
-        }
+    h2 {
+        text-align: center;
+        color: #1565c0;
+    }
 
-        .card h2 {
-            text-align: center;
-            margin-bottom: 15px;
-            color: #0d47a1;
-        }
+    input, textarea, button {
+        width: 100%;
+        margin-top: 12px;
+        padding: 10px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+    }
 
-        textarea {
-            width: 100%;
-            height: 120px;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-            padding: 10px;
-            font-size: 14px;
-            resize: none;
-            outline: none;
-        }
+    textarea {
+        height: 100px;
+        resize: none;
+    }
 
-        textarea:focus {
-            border-color: #1565c0;
-        }
+    button {
+        background: #1565c0;
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: 0.3s;
+    }
 
-        button {
-            width: 100%;
-            margin-top: 15px;
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            background-color: #1565c0;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
+    button:hover {
+        background: #0d47a1;
+        transform: scale(1.02);
+    }
 
-        button:hover {
-            background-color: #0d47a1;
-            transform: scale(1.02);
-        }
+    .hidden {
+        display: none;
+    }
 
-        .result {
-            margin-top: 20px;
-            padding: 12px;
-            background-color: #e3f2fd;
-            border-radius: 8px;
-            text-align: center;
-            font-size: 16px;
-            color: #0d47a1;
-            animation: slideUp 0.6s ease-in-out;
-        }
+    .result {
+        margin-top: 15px;
+        padding: 10px;
+        background: #e3f2fd;
+        border-radius: 6px;
+        text-align: center;
+        animation: slideUp 0.5s;
+    }
 
-        /* Footer */
-        footer {
-            background-color: #f1f1f1;
-            text-align: center;
-            padding: 10px;
-            font-size: 13px;
-            color: #555;
-        }
+    footer {
+        text-align: center;
+        color: gray;
+        font-size: 13px;
+        margin-top: 40px;
+    }
 
-        /* Animations */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
 
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(15px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-    </style>
+    @keyframes slideUp {
+        from { opacity: 0; transform: translateY(15px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
 </head>
+
 <body>
 
-<header>
-    Webpage Classification Using SVM Algorithm
-</header>
-
-<div class="container">
+<!-- LOGIN PAGE -->
+<div class="center" id="loginPage">
     <div class="card">
-        <h2>Enter Webpage Content</h2>
-
-        <textarea placeholder="Paste webpage content here..."></textarea>
-
-        <button>Classify Webpage</button>
-
-        <!-- Example result (backend will replace this) -->
-        <div class="result">
-            Predicted Category: Technology
-        </div>
+        <h2>Login</h2>
+        <input placeholder="Username">
+        <input type="password" placeholder="Password">
+        <button onclick="goToDashboard()">Login</button>
     </div>
 </div>
 
-<footer>
-    Developed by<br>
-    Keerthana<br>
-    Sai Teja
-</footer>
+<!-- DASHBOARD -->
+<div class="center hidden" id="dashboardPage">
+    <div class="card" style="width:480px;">
+        <h2>Webpage Classification Using SVM</h2>
+        <textarea id="content" placeholder="Enter webpage content"></textarea>
+        <button onclick="classify()">Classify</button>
+
+        <div id="resultBox" class="result hidden"></div>
+
+        <footer>
+            Developed by<br>
+            Keerthana<br>
+            Sai Teja
+        </footer>
+    </div>
+</div>
+
+<script>
+    function goToDashboard() {
+        document.getElementById("loginPage").classList.add("hidden");
+        document.getElementById("dashboardPage").classList.remove("hidden");
+    }
+
+    function classify() {
+        const text = document.getElementById("content").value.toLowerCase();
+        let category = "Unknown / Other Category";
+
+        if (text.match(/school|college|exam|education|university/))
+            category = "Education";
+        else if (text.match(/cricket|football|sports|match|player/))
+            category = "Sports";
+        else if (text.match(/computer|software|technology|programming/))
+            category = "Technology";
+        else if (text.match(/doctor|hospital|medicine|health/))
+            category = "Health";
+        else if (text.match(/movie|music|actor|entertainment/))
+            category = "Entertainment";
+
+        const box = document.getElementById("resultBox");
+        box.innerHTML = "Predicted Category: <b>" + category + "</b>";
+        box.classList.remove("hidden");
+    }
+</script>
 
 </body>
 </html>
