@@ -1,1 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Mini Web Project</title>
 
+<style>
+* {
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* COMMON BOX */
+.box {
+    width: 380px;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    animation: fadeIn 1s ease;
+}
+
+/* ANIMATIONS */
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideLeft {
+    from { transform: translateX(100px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+/* INPUTS */
+input, textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+/* BUTTON */
+button {
+    width: 100%;
+    padding: 12px;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #5a67d8;
+    transform: scale(1.05);
+}
+
+h2 {
+    text-align: center;
+}
+
+/* HIDE PAGES */
+#dashboard, #classifier {
+    display: none;
+}
+</style>
+
+</head>
+<body>
+
+<!-- LOGIN PAGE -->
+<div class="box" id="login">
+    <h2>Login</h2>
+    <input type="text" id="user" placeholder="Username">
+    <input type="password" id="pass" placeholder="Password">
+    <button onclick="login()">Login</button>
+    <p id="loginMsg" style="text-align:center;"></p>
+</div>
+
+<!-- DASHBOARD -->
+<div class="box" id="dashboard">
+    <h2>Dashboard</h2>
+    <p style="text-align:center;">Welcome to Mini Web Project 🚀</p>
+    <button onclick="openClassifier()">Web Page Classification</button>
+    <button onclick="logout()" style="background:#e53e3e;">Logout</button>
+</div>
+
+<!-- CLASSIFICATION PAGE -->
+<div class="box" id="classifier" style="animation: slideLeft 1s;">
+    <h2>Web Page Classification</h2>
+    <textarea id="text" placeholder="Enter webpage content..."></textarea>
+    <button onclick="classify()">Classify</button>
+    <p id="result" style="text-align:center;font-weight:bold;"></p>
+    <button onclick="back()">Back</button>
+</div>
+
+<script>
+function login() {
+    let u = document.getElementById("user").value;
+    let p = document.getElementById("pass").value;
+
+    if (u === "admin" && p === "1234") {
+        document.getElementById("login").style.display = "none";
+        document.getElementById("dashboard").style.display = "block";
+    } else {
+        document.getElementById("loginMsg").style.color = "red";
+        document.getElementById("loginMsg").innerHTML = "Invalid Credentials";
+    }
+}
+
+function logout() {
+    document.getElementById("dashboard").style.display = "none";
+    document.getElementById("login").style.display = "block";
+}
+
+function openClassifier() {
+    document.getElementById("dashboard").style.display = "none";
+    document.getElementById("classifier").style.display = "block";
+}
+
+function back() {
+    document.getElementById("classifier").style.display = "none";
+    document.getElementById("dashboard").style.display = "block";
+}
+
+function classify() {
+    let t = document.getElementById("text").value.toLowerCase();
+    let category = "Unknown";
+
+    if (t.includes("ai") || t.includes("machine learning"))
+        category = "Technology";
+    else if (t.includes("cricket") || t.includes("football"))
+        category = "Sports";
+    else if (t.includes("movie") || t.includes("music"))
+        category = "Entertainment";
+    else if (t.includes("stock") || t.includes("business"))
+        category = "Business";
+
+    document.getElementById("result").innerHTML =
+        "Predicted Category: " + category;
+}
+</script>
+
+</body>
+</html>
