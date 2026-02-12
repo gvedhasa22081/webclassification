@@ -2,169 +2,231 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>AI Webpage Classification</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SmartCart</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
-/* ---------- GLOBAL ---------- */
-body {
-    margin: 0;
-    font-family: 'Segoe UI', Arial;
-    background: radial-gradient(circle at top, #0f2027, #000000);
-    color: white;
-    overflow: hidden;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins', sans-serif;
 }
 
-.center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+body{
+    background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+    overflow-x:hidden;
 }
 
-/* ---------- NEON CARD ---------- */
-.card {
-    background: rgba(255,255,255,0.05);
-    backdrop-filter: blur(15px);
-    border-radius: 16px;
-    padding: 30px;
-    width: 360px;
-    box-shadow: 0 0 25px #00f2ff;
-    animation: fadeIn 1s ease;
+/* Splash Screen */
+#splash{
+    position:fixed;
+    width:100%;
+    height:100vh;
+    background:#111;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    color:white;
+    z-index:999;
 }
 
-/* ---------- HEADINGS ---------- */
-h2 {
-    text-align: center;
-    color: #00f2ff;
-    text-shadow: 0 0 10px #00f2ff;
+.logo{
+    font-size:50px;
+    font-weight:600;
+    animation: zoomIn 2s ease forwards;
 }
 
-/* ---------- INPUTS ---------- */
-input, textarea, button {
-    width: 100%;
-    margin-top: 15px;
-    padding: 12px;
-    border-radius: 8px;
-    border: none;
-    font-size: 14px;
+.dev{
+    margin-top:10px;
+    opacity:0;
+    animation: fadeIn 3s ease forwards;
+    animation-delay:1.5s;
 }
 
-textarea {
-    height: 110px;
-    resize: none;
+@keyframes zoomIn{
+    from{transform:scale(0); opacity:0;}
+    to{transform:scale(1); opacity:1;}
 }
 
-/* ---------- BUTTON ---------- */
-button {
-    background: linear-gradient(90deg, #00f2ff, #7cff00);
-    color: black;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-    box-shadow: 0 0 15px #00f2ff;
+@keyframes fadeIn{
+    to{opacity:1;}
 }
 
-button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 30px #7cff00;
+/* Login Page */
+#loginPage{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
 }
 
-/* ---------- RESULT ---------- */
-.result {
-    margin-top: 20px;
-    padding: 12px;
-    border-radius: 8px;
-    text-align: center;
-    background: rgba(0,0,0,0.6);
-    box-shadow: 0 0 15px #00f2ff;
-    animation: slideUp 0.6s ease;
+.login-box{
+    background:white;
+    padding:40px;
+    border-radius:15px;
+    width:300px;
+    text-align:center;
+    box-shadow:0 10px 30px rgba(0,0,0,0.3);
+    animation: slideUp 1s ease;
 }
 
-/* ---------- FOOTER ---------- */
-footer {
-    text-align: center;
-    font-size: 13px;
-    margin-top: 35px;
-    color: #aaa;
+@keyframes slideUp{
+    from{transform:translateY(50px); opacity:0;}
+    to{transform:translateY(0); opacity:1;}
 }
 
-/* ---------- HIDDEN ---------- */
-.hidden {
-    display: none;
+input{
+    width:100%;
+    padding:10px;
+    margin:10px 0;
+    border-radius:8px;
+    border:1px solid #ccc;
 }
 
-/* ---------- ANIMATIONS ---------- */
-@keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.9); }
-    to { opacity: 1; transform: scale(1); }
+button{
+    width:100%;
+    padding:10px;
+    border:none;
+    border-radius:8px;
+    background:#2c5364;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
 }
 
-@keyframes slideUp {
-    from { opacity: 0; transform: translateY(15px); }
-    to { opacity: 1; transform: translateY(0); }
+button:hover{
+    background:#203a43;
+}
+
+/* Main App */
+#app{
+    display:none;
+    padding:20px;
+    color:white;
+}
+
+/* Floating Offers */
+.offer{
+    position:fixed;
+    padding:10px 20px;
+    background:red;
+    border-radius:30px;
+    font-weight:bold;
+    animation: float 4s infinite ease-in-out;
+}
+
+.offer1{ top:20%; left:5%; }
+.offer2{ top:50%; right:5%; background:orange; }
+.offer3{ bottom:15%; left:40%; background:green; }
+
+@keyframes float{
+    0%,100%{ transform:translateY(0); }
+    50%{ transform:translateY(-20px); }
+}
+
+/* Products */
+.products{
+    display:flex;
+    flex-wrap:wrap;
+    gap:20px;
+    justify-content:center;
+    margin-top:50px;
+}
+
+.card{
+    background:white;
+    color:black;
+    width:200px;
+    border-radius:15px;
+    padding:15px;
+    text-align:center;
+    transition:0.3s;
+    animation: fadeCard 1s ease;
+}
+
+@keyframes fadeCard{
+    from{opacity:0; transform:scale(0.8);}
+    to{opacity:1; transform:scale(1);}
+}
+
+.card:hover{
+    transform:scale(1.05);
+}
+
+.card img{
+    width:100%;
+    border-radius:10px;
 }
 </style>
 </head>
-
 <body>
 
-<!-- LOGIN PAGE -->
-<div class="center" id="loginPage">
-    <div class="card">
-        <h2>Secure Login</h2>
-        <input placeholder="Username">
+<!-- Splash Screen -->
+<div id="splash">
+    <div class="logo">SmartCart</div>
+    <div class="dev">Developed by Keerthana</div>
+</div>
+
+<!-- Login Page -->
+<div id="loginPage">
+    <div class="login-box">
+        <h2>Login</h2>
+        <input type="text" placeholder="Username">
         <input type="password" placeholder="Password">
-        <button onclick="login()">Login</button>
-        <p style="text-align:center;color:#aaa;font-size:13px;">
-            Demo login – any input allowed
-        </p>
+        <button onclick="login()">Enter</button>
     </div>
 </div>
 
-<!-- DASHBOARD PAGE -->
-<div class="center hidden" id="dashboardPage">
-    <div class="card" style="width:500px;">
-        <h2>Webpage Classification (AI)</h2>
+<!-- Main App -->
+<div id="app">
 
-        <textarea id="content" placeholder="Enter webpage content here..."></textarea>
-        <button onclick="classify()">Predict Category</button>
+    <div class="offer offer1">₹99 Offer</div>
+    <div class="offer offer2">₹199 Combo</div>
+    <div class="offer offer3">₹299 Special</div>
 
-        <div id="resultBox" class="result hidden"></div>
+    <h1 style="text-align:center;">Welcome to SmartCart</h1>
 
-        <footer>
-            Developed by<br>
-            Keerthana<br>
-            Sai Teja
-        </footer>
+    <div class="products">
+        <div class="card">
+            <img src="https://via.placeholder.com/200x200">
+            <h3>Stylish Dress</h3>
+            <p>₹799</p>
+        </div>
+
+        <div class="card">
+            <img src="https://via.placeholder.com/200x200">
+            <h3>Casual Shirt</h3>
+            <p>₹499</p>
+        </div>
+
+        <div class="card">
+            <img src="https://via.placeholder.com/200x200">
+            <h3>Combo Pack</h3>
+            <p>₹999</p>
+        </div>
+
+        <div class="card">
+            <img src="https://via.placeholder.com/200x200">
+            <h3>Trendy Jacket</h3>
+            <p>₹1299</p>
+        </div>
     </div>
+
 </div>
 
 <script>
-/* ---------- LOGIN ---------- */
-function login() {
-    document.getElementById("loginPage").classList.add("hidden");
-    document.getElementById("dashboardPage").classList.remove("hidden");
-}
+setTimeout(()=>{
+    document.getElementById("splash").style.display="none";
+},3000);
 
-/* ---------- CATEGORY DETECTION SOFTWARE (NO API) ---------- */
-function classify() {
-    const text = document.getElementById("content").value.toLowerCase();
-    let category = "Unknown / Other Category";
-
-    if (/school|college|university|exam|education|student/.test(text))
-        category = "Education";
-    else if (/cricket|football|sports|match|player|tournament/.test(text))
-        category = "Sports";
-    else if (/mobile|smartphone|computer|software|technology|programming|ai|android|iphone/.test(text))
-        category = "Technology";
-    else if (/doctor|hospital|medicine|health|disease|treatment/.test(text))
-        category = "Health";
-    else if (/movie|music|actor|entertainment|film|song/.test(text))
-        category = "Entertainment";
-
-    const box = document.getElementById("resultBox");
-    box.innerHTML = "Predicted Category:<br><b style='color:#00f2ff'>" + category + "</b>";
-    box.classList.remove("hidden");
+function login(){
+    document.getElementById("loginPage").style.display="none";
+    document.getElementById("app").style.display="block";
 }
 </script>
 
