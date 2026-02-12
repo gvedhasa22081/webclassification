@@ -16,8 +16,9 @@
 }
 
 body{
-    background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+    background: linear-gradient(135deg,#141e30,#243b55);
     overflow-x:hidden;
+    color:white;
 }
 
 /* Splash Screen */
@@ -30,33 +31,32 @@ body{
     flex-direction:column;
     justify-content:center;
     align-items:center;
-    color:white;
     z-index:999;
 }
 
 .logo{
     font-size:50px;
     font-weight:600;
-    animation: zoomIn 2s ease forwards;
+    animation:zoom 2s ease forwards;
 }
 
 .dev{
     margin-top:10px;
     opacity:0;
-    animation: fadeIn 3s ease forwards;
+    animation:fade 3s ease forwards;
     animation-delay:1.5s;
 }
 
-@keyframes zoomIn{
+@keyframes zoom{
     from{transform:scale(0); opacity:0;}
     to{transform:scale(1); opacity:1;}
 }
 
-@keyframes fadeIn{
+@keyframes fade{
     to{opacity:1;}
 }
 
-/* Login Page */
+/* Login */
 #loginPage{
     display:flex;
     justify-content:center;
@@ -66,17 +66,12 @@ body{
 
 .login-box{
     background:white;
+    color:black;
     padding:40px;
     border-radius:15px;
     width:300px;
     text-align:center;
-    box-shadow:0 10px 30px rgba(0,0,0,0.3);
-    animation: slideUp 1s ease;
-}
-
-@keyframes slideUp{
-    from{transform:translateY(50px); opacity:0;}
-    to{transform:translateY(0); opacity:1;}
+    box-shadow:0 10px 30px rgba(0,0,0,0.4);
 }
 
 input{
@@ -92,41 +87,56 @@ button{
     padding:10px;
     border:none;
     border-radius:8px;
-    background:#2c5364;
+    background:#243b55;
     color:white;
-    font-weight:bold;
     cursor:pointer;
     transition:0.3s;
 }
 
 button:hover{
-    background:#203a43;
+    background:#141e30;
 }
 
-/* Main App */
+/* App */
 #app{
     display:none;
     padding:20px;
-    color:white;
 }
 
-/* Floating Offers */
-.offer{
-    position:fixed;
-    padding:10px 20px;
-    background:red;
-    border-radius:30px;
+/* Sliding Offers */
+.slider{
+    width:100%;
+    overflow:hidden;
+    margin:20px 0;
+    background:white;
+    color:black;
+    border-radius:10px;
+}
+
+.slide-track{
+    display:flex;
+    width:300%;
+    animation:slide 10s infinite;
+}
+
+.slide{
+    width:100%;
+    padding:20px;
+    text-align:center;
     font-weight:bold;
-    animation: float 4s infinite ease-in-out;
+    font-size:22px;
+    cursor:pointer;
 }
 
-.offer1{ top:20%; left:5%; }
-.offer2{ top:50%; right:5%; background:orange; }
-.offer3{ bottom:15%; left:40%; background:green; }
+.slide:nth-child(1){background:#ff4e50;}
+.slide:nth-child(2){background:#f9d423;}
+.slide:nth-child(3){background:#24c6dc;}
 
-@keyframes float{
-    0%,100%{ transform:translateY(0); }
-    50%{ transform:translateY(-20px); }
+@keyframes slide{
+    0%{transform:translateX(0);}
+    33%{transform:translateX(-100%);}
+    66%{transform:translateX(-200%);}
+    100%{transform:translateX(0);}
 }
 
 /* Products */
@@ -135,44 +145,41 @@ button:hover{
     flex-wrap:wrap;
     gap:20px;
     justify-content:center;
-    margin-top:50px;
+    margin-top:20px;
 }
 
 .card{
     background:white;
     color:black;
-    width:200px;
+    width:220px;
     border-radius:15px;
     padding:15px;
     text-align:center;
     transition:0.3s;
-    animation: fadeCard 1s ease;
-}
-
-@keyframes fadeCard{
-    from{opacity:0; transform:scale(0.8);}
-    to{opacity:1; transform:scale(1);}
-}
-
-.card:hover{
-    transform:scale(1.05);
 }
 
 .card img{
     width:100%;
+    height:220px;
+    object-fit:cover;
     border-radius:10px;
+}
+
+.card:hover{
+    transform:scale(1.05);
+    box-shadow:0 10px 25px rgba(0,0,0,0.5);
 }
 </style>
 </head>
 <body>
 
-<!-- Splash Screen -->
+<!-- Splash -->
 <div id="splash">
     <div class="logo">SmartCart</div>
     <div class="dev">Developed by Keerthana</div>
 </div>
 
-<!-- Login Page -->
+<!-- Login -->
 <div id="loginPage">
     <div class="login-box">
         <h2>Login</h2>
@@ -182,40 +189,48 @@ button:hover{
     </div>
 </div>
 
-<!-- Main App -->
+<!-- App -->
 <div id="app">
 
-    <div class="offer offer1">₹99 Offer</div>
-    <div class="offer offer2">₹199 Combo</div>
-    <div class="offer offer3">₹299 Special</div>
+<h1 style="text-align:center;">Welcome to SmartCart</h1>
 
-    <h1 style="text-align:center;">Welcome to SmartCart</h1>
-
-    <div class="products">
-        <div class="card">
-            <img src="https://via.placeholder.com/200x200">
-            <h3>Stylish Dress</h3>
-            <p>₹799</p>
-        </div>
-
-        <div class="card">
-            <img src="https://via.placeholder.com/200x200">
-            <h3>Casual Shirt</h3>
-            <p>₹499</p>
-        </div>
-
-        <div class="card">
-            <img src="https://via.placeholder.com/200x200">
-            <h3>Combo Pack</h3>
-            <p>₹999</p>
-        </div>
-
-        <div class="card">
-            <img src="https://via.placeholder.com/200x200">
-            <h3>Trendy Jacket</h3>
-            <p>₹1299</p>
-        </div>
+<!-- Sliding Offers -->
+<div class="slider">
+    <div class="slide-track">
+        <div class="slide" onclick="showOffer('99')">🔥 ₹99 Special Offer</div>
+        <div class="slide" onclick="showOffer('199')">🔥 ₹199 Combo Deal</div>
+        <div class="slide" onclick="showOffer('299')">🔥 ₹299 Mega Combo</div>
     </div>
+</div>
+
+<!-- Products -->
+<div class="products" id="products">
+
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1520975916090-3105956dac38">
+        <h3>Stylish Dress</h3>
+        <p>₹799</p>
+    </div>
+
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b">
+        <h3>Casual Shirt</h3>
+        <p>₹499</p>
+    </div>
+
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1542060748-10c28b62716b">
+        <h3>Combo Pack</h3>
+        <p>₹999</p>
+    </div>
+
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1521335629791-ce4aec67dd47">
+        <h3>Trendy Jacket</h3>
+        <p>₹1299</p>
+    </div>
+
+</div>
 
 </div>
 
@@ -227,6 +242,10 @@ setTimeout(()=>{
 function login(){
     document.getElementById("loginPage").style.display="none";
     document.getElementById("app").style.display="block";
+}
+
+function showOffer(price){
+    alert("Showing ₹" + price + " offer products!");
 }
 </script>
 
