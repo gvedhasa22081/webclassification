@@ -1,251 +1,197 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SmartCart</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Poppins', sans-serif;
-}
-
 body{
-    background: linear-gradient(135deg,#141e30,#243b55);
-    overflow-x:hidden;
+    margin:0;
+    font-family:Arial;
+    background:linear-gradient(135deg,#141e30,#243b55);
     color:white;
+    overflow-x:hidden;
 }
-
-/* Splash Screen */
-#splash{
-    position:fixed;
-    width:100%;
-    height:100vh;
-    background:#111;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    z-index:999;
-}
-
-.logo{
-    font-size:50px;
-    font-weight:600;
-    animation:zoom 2s ease forwards;
-}
-
-.dev{
-    margin-top:10px;
-    opacity:0;
-    animation:fade 3s ease forwards;
-    animation-delay:1.5s;
-}
-
-@keyframes zoom{
-    from{transform:scale(0); opacity:0;}
-    to{transform:scale(1); opacity:1;}
-}
-
-@keyframes fade{
-    to{opacity:1;}
-}
-
-/* Login */
-#loginPage{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
-}
-
-.login-box{
-    background:white;
-    color:black;
-    padding:40px;
-    border-radius:15px;
-    width:300px;
-    text-align:center;
-    box-shadow:0 10px 30px rgba(0,0,0,0.4);
-}
-
-input{
-    width:100%;
-    padding:10px;
-    margin:10px 0;
-    border-radius:8px;
-    border:1px solid #ccc;
-}
+.page{ display:none; padding:20px; }
 
 button{
-    width:100%;
-    padding:10px;
+    padding:10px 15px;
     border:none;
     border-radius:8px;
-    background:#243b55;
+    cursor:pointer;
+    background:#ff4e50;
     color:white;
+    margin-top:10px;
+}
+
+/* Category Slider */
+.categories{
+    display:flex;
+    overflow-x:auto;
+    gap:20px;
+    padding:20px;
+}
+.cat{
+    min-width:150px;
+    background:white;
+    color:black;
+    padding:20px;
+    border-radius:10px;
+    text-align:center;
     cursor:pointer;
     transition:0.3s;
 }
+.cat:hover{ transform:scale(1.1); }
 
-button:hover{
-    background:#141e30;
-}
-
-/* App */
-#app{
-    display:none;
-    padding:20px;
-}
-
-/* Sliding Offers */
-.slider{
-    width:100%;
-    overflow:hidden;
-    margin:20px 0;
-    background:white;
-    color:black;
-    border-radius:10px;
-}
-
-.slide-track{
-    display:flex;
-    width:300%;
-    animation:slide 10s infinite;
-}
-
-.slide{
-    width:100%;
-    padding:20px;
-    text-align:center;
-    font-weight:bold;
-    font-size:22px;
-    cursor:pointer;
-}
-
-.slide:nth-child(1){background:#ff4e50;}
-.slide:nth-child(2){background:#f9d423;}
-.slide:nth-child(3){background:#24c6dc;}
-
-@keyframes slide{
-    0%{transform:translateX(0);}
-    33%{transform:translateX(-100%);}
-    66%{transform:translateX(-200%);}
-    100%{transform:translateX(0);}
-}
-
-/* Products */
+/* Product Cards */
 .products{
     display:flex;
     flex-wrap:wrap;
     gap:20px;
-    justify-content:center;
-    margin-top:20px;
 }
-
 .card{
     background:white;
     color:black;
-    width:220px;
-    border-radius:15px;
+    width:200px;
     padding:15px;
-    text-align:center;
-    transition:0.3s;
+    border-radius:10px;
+    cursor:pointer;
 }
-
 .card img{
     width:100%;
-    height:220px;
+    height:180px;
     object-fit:cover;
-    border-radius:10px;
 }
 
-.card:hover{
-    transform:scale(1.05);
-    box-shadow:0 10px 25px rgba(0,0,0,0.5);
+/* Success Animation */
+.success{
+    text-align:center;
+    margin-top:100px;
+    animation:zoom 1s ease;
+}
+@keyframes zoom{
+    from{transform:scale(0);}
+    to{transform:scale(1);}
 }
 </style>
 </head>
 <body>
 
-<!-- Splash -->
-<div id="splash">
-    <div class="logo">SmartCart</div>
-    <div class="dev">Developed by Keerthana</div>
+<!-- LOGIN -->
+<div id="login" class="page" style="display:block">
+    <h2>Login</h2>
+    <input placeholder="Username"><br><br>
+    <input placeholder="Password" type="password"><br><br>
+    <button onclick="openHome()">Enter</button>
 </div>
 
-<!-- Login -->
-<div id="loginPage">
-    <div class="login-box">
-        <h2>Login</h2>
-        <input type="text" placeholder="Username">
-        <input type="password" placeholder="Password">
-        <button onclick="login()">Enter</button>
-    </div>
-</div>
-
-<!-- App -->
-<div id="app">
-
-<h1 style="text-align:center;">Welcome to SmartCart</h1>
-
-<!-- Sliding Offers -->
-<div class="slider">
-    <div class="slide-track">
-        <div class="slide" onclick="showOffer('99')">🔥 ₹99 Special Offer</div>
-        <div class="slide" onclick="showOffer('199')">🔥 ₹199 Combo Deal</div>
-        <div class="slide" onclick="showOffer('299')">🔥 ₹299 Mega Combo</div>
+<!-- HOME -->
+<div id="home" class="page">
+    <h2>Categories</h2>
+    <div class="categories">
+        <div class="cat" onclick="loadProducts('Men Fashion')">Men Fashion</div>
+        <div class="cat" onclick="loadProducts('Women Fashion')">Women Fashion</div>
+        <div class="cat" onclick="loadProducts('Shorts')">Shorts</div>
+        <div class="cat" onclick="loadProducts('Accessories')">Accessories</div>
+        <div class="cat" onclick="loadProducts('Valentine Special')">Valentine Special</div>
     </div>
 </div>
 
-<!-- Products -->
-<div class="products" id="products">
-
-    <div class="card">
-        <img src="https://images.unsplash.com/photo-1520975916090-3105956dac38">
-        <h3>Stylish Dress</h3>
-        <p>₹799</p>
-    </div>
-
-    <div class="card">
-        <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b">
-        <h3>Casual Shirt</h3>
-        <p>₹499</p>
-    </div>
-
-    <div class="card">
-        <img src="https://images.unsplash.com/photo-1542060748-10c28b62716b">
-        <h3>Combo Pack</h3>
-        <p>₹999</p>
-    </div>
-
-    <div class="card">
-        <img src="https://images.unsplash.com/photo-1521335629791-ce4aec67dd47">
-        <h3>Trendy Jacket</h3>
-        <p>₹1299</p>
-    </div>
-
+<!-- PRODUCTS -->
+<div id="productsPage" class="page">
+    <h2 id="catTitle"></h2>
+    <div class="products" id="products"></div>
+    <button onclick="openHome()">Back</button>
 </div>
 
+<!-- PRODUCT DETAIL -->
+<div id="detail" class="page">
+    <h2 id="productName"></h2>
+    <p><b>Price:</b> ₹999</p>
+    <p><b>Delivery:</b> Delivered in 2 days 🚚</p>
+
+    <p><b>Select Size:</b></p>
+    <select id="size">
+        <option>S</option>
+        <option>M</option>
+        <option>L</option>
+        <option>XL</option>
+        <option>XXL</option>
+    </select>
+
+    <p><b>Payment Methods:</b> UPI / Card / COD</p>
+    <p><b>Reviews:</b> ⭐⭐⭐⭐☆ (4.2/5)</p>
+
+    <button onclick="openPayment()">Place Order</button>
+    <button onclick="backToProducts()">Back</button>
+</div>
+
+<!-- PAYMENT -->
+<div id="payment" class="page">
+    <h2>Payment</h2>
+    <p>Select Method:</p>
+    <select>
+        <option>UPI</option>
+        <option>Credit Card</option>
+        <option>Cash on Delivery</option>
+    </select>
+    <br><br>
+    <button onclick="successPage()">Pay Now</button>
+</div>
+
+<!-- SUCCESS -->
+<div id="success" class="page">
+    <div class="success">
+        <h1>🎉 Order Successfully Placed!</h1>
+        <p>Thank you for shopping with us ❤️</p>
+        <button onclick="openHome()">Continue Shopping</button>
+    </div>
 </div>
 
 <script>
-setTimeout(()=>{
-    document.getElementById("splash").style.display="none";
-},3000);
-
-function login(){
-    document.getElementById("loginPage").style.display="none";
-    document.getElementById("app").style.display="block";
+function hideAll(){
+    document.querySelectorAll(".page").forEach(p=>p.style.display="none");
 }
 
-function showOffer(price){
-    alert("Showing ₹" + price + " offer products!");
+function openHome(){
+    hideAll();
+    document.getElementById("home").style.display="block";
+}
+
+function loadProducts(category){
+    hideAll();
+    document.getElementById("productsPage").style.display="block";
+    document.getElementById("catTitle").innerText=category;
+
+    let productHTML="";
+    for(let i=1;i<=4;i++){
+        productHTML+=`
+        <div class="card" onclick="openDetail('${category} Item ${i}')">
+            <img src="https://picsum.photos/200?random=${Math.random()}">
+            <h4>${category} Item ${i}</h4>
+        </div>`;
+    }
+    document.getElementById("products").innerHTML=productHTML;
+}
+
+function openDetail(name){
+    hideAll();
+    document.getElementById("detail").style.display="block";
+    document.getElementById("productName").innerText=name;
+}
+
+function backToProducts(){
+    document.getElementById("detail").style.display="none";
+    document.getElementById("productsPage").style.display="block";
+}
+
+function openPayment(){
+    hideAll();
+    document.getElementById("payment").style.display="block";
+}
+
+function successPage(){
+    hideAll();
+    document.getElementById("success").style.display="block";
 }
 </script>
 
